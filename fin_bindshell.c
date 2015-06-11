@@ -2,9 +2,9 @@ int main(void)
 {
   int sd, cli, port;
 
-  char *servaddr =  "\x02\x00"             //  Address family (AF_INET, INADDR_ANY)
+  char *servaddr =  "\x02\x00"             //  Address family (AF_INET)
                     "\x7A\x69"             //  port 31337
-                    "\x00\x00\x00\x00"
+                    "\x00\x00\x00\x00"	   //  INADDR_ANY
                     "\x00\x00\x00\x00"
                     "\x00\x00\x00\x00";
 
