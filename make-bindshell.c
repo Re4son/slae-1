@@ -13,7 +13,7 @@
 int main( int argc, char *argv[] )
 {
     unsigned int port;
-    char low,high;
+    unsigned char low,high;
     char cmdArg[6];
     int i;
 
