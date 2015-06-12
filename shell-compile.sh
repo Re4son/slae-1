@@ -12,19 +12,19 @@ PROGRAM=$1
 EXT="${PROGRAM##*.}"
 
 
-if [ $EXT == "nasm" ]
+if [ $EXT == "nasm" ];
     then
 	PROGRAM="${PROGRAM%.*}"
     else
 	PROGRAM=$1
 fi
 
-## if [ ! -f $PROGRAM ]
-##    then
-##	echo "[!] Cannot find $PROGRAM.nasm"
-##	echo "[-] Exiting"
-##	exit
-##fi
+if [ ! -f $PROGRAM ];
+    then
+	echo "[!] Cannot find $PROGRAM.nasm"
+	echo "[-] Exiting"
+	exit
+fi
 
 echo
 echo "[+] Assembling $PROGRAM.nasm with \"nasm -f elf32 -o $PROGRAM.o $PROGRAM.nasm\" "
