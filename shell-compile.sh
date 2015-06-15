@@ -19,7 +19,7 @@ if [ $EXT == "nasm" ];
 	PROGRAM=$1
 fi
 
-if [ ! -f $PROGRAM ];
+if [ ! -f $PROGRAM.nasm ];
     then
 	echo "[!] Cannot find $PROGRAM.nasm"
 	echo "[-] Exiting"
