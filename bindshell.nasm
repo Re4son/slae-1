@@ -34,7 +34,7 @@ _start:
 
     ; --- bind ---
 
-    inc ebx	    	; increase the ub call function number to 2 for bind
+    inc ebx	    	; increase the sub call function number to 2 for bind
 
     ; push bind() parameters
     push edx        	; INADDR_ANY
